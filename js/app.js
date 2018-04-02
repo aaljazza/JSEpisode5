@@ -85,16 +85,14 @@ const sendMessage = function() {
  *		messages area.
  *		(you can use createNewMessage to do this)
  *****************************************************/
-const getNewMessages = function() {
-  let url = "http://192.168.1.21/messages/?latest=" + (latestTimestamp || "");
+const getAllMessages = function() {
+  // Complete me!
   axios
-    .get(url)
+    .get("http://192.168.1.21/messages/")
     .then(res => res.data)
     .then(newMessages => {
+      messages.innerHTML = "";
       newMessages.forEach(createNewMessage);
-      if (newMessages.length) {
-        latestTimestamp = newMessages.pop().timestamp;
-      }
     })
     .catch(error => console.error(error));
 };
