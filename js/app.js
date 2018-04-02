@@ -85,6 +85,14 @@ const sendMessage = function() {
  *****************************************************/
 const getNewMessages = function() {
   // Complete me!
+  axios
+    .get("http://192.168.1.21/messages/")
+    .then(res => res.data)
+    .then(newMessages => {
+      messages.innerHTML = "";
+      newMessages.forEach(createNewMessage);
+    })
+    .catch(error => console.error(error));
 };
 
 /*****************************************************************
