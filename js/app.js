@@ -6,6 +6,9 @@ let messageInput;
 let sendButton;
 let messages;
 
+// Timestamp for the latest message recieved
+let latestTimestamp;
+
 const setup = function() {
   // Retrieve the high-level elements on the page:
   // - The username input field
@@ -51,25 +54,25 @@ const createNewMessage = function(messageObj) {
 
 /*****************************************************
  * Send a new message to the server:
- * - Create a messageObj with the following properties:
+ * - Create a payload with the following properties:
  *			* username
  *			* message
  * - Use Axios to post that message to the server at:
  *			<ip_address>/messages/create/
- * - Then add your own message to the page
- *		using createNewMessage
+ * - After your message was successfully created,
+ *    add it to the page using createNewMessage
  * - Don't forget to clear the message input.
  *****************************************************/
-const sendMessage = function() {
-  // Complete me!
-  let newMessage = {
+const sendMessage = async function() {
+  let payload = {
     username: usernameInput.value,
     message: messageInput.value
   };
   axios
-    .post("http://192.168.1.21/messages/create/", newMessage)
-    .then(() => {
-      createNewMessage(newMessage);
+    .post("http://192.168.1.21/messages/create/", payload)
+    .then(res => res.data)
+    .then(newMessage => {
+      timestamp = newMessage.timestamp;
       messageInput.value = "";
     })
     .catch(error => console.error(error));
@@ -132,4 +135,4 @@ export default {
   editUsername
 };
 
-setInterval(getNewMessages, 3000);
+setInterval(getAllMessages, 3000);
