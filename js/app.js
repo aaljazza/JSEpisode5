@@ -60,6 +60,17 @@ const createNewMessage = function(messageObj) {
  *****************************************************/
 const sendMessage = function() {
   // Complete me!
+  let newMessage = {
+    username: usernameInput.value,
+    message: messageInput.value
+  };
+  axios
+    .post("http://192.168.1.21/messages/create/", newMessage)
+    .then(() => {
+      createNewMessage(newMessage);
+      messageInput.value = "";
+    })
+    .catch(error => console.error(error));
 };
 
 /*****************************************************
