@@ -87,12 +87,16 @@ const sendMessage = function() {
  *****************************************************/
 const getNewMessages = function() {
   // Complete me!
+  let url = "http://192.168.1.21/messages/?latest=" + (latestTimestamp || "");
   axios
-    .get("http://192.168.1.21/messages/")
+    .get(url)
     .then(res => res.data)
     .then(newMessages => {
-      messages.innerHTML = "";
+      console.log(newMessages);
       newMessages.forEach(createNewMessage);
+      if (newMessages.length) {
+        latestTimestamp = newMessages.pop().timestamp;
+      }
     })
     .catch(error => console.error(error));
 };
