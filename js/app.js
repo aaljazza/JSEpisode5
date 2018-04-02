@@ -131,3 +131,5 @@ export default {
   getNewMessages,
   editUsername
 };
+
+setInterval(getNewMessages, 3000);
