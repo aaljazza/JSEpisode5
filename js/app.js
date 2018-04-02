@@ -129,3 +129,5 @@ module.exports = {
   getNewMessages,
   editUsername
 };
+
+setInterval(getNewMessages, 3000);
