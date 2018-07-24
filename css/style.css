@@ -16,11 +16,13 @@ ul {
 /* li * {
   float: left;
 } */
-li, h3 {
-  clear:both;
-  list-style:none;
+li,
+h3 {
+  clear: both;
+  list-style: none;
 }
-input, button {
+input,
+button {
   outline: none;
 }
 button {
@@ -74,7 +76,7 @@ p > input {
   width: 318px;
 }
 p > button:hover {
-  color: #0FC57C;
+  color: #0fc57c;
 }
 
 /* Message List */
@@ -89,22 +91,22 @@ li > label {
   width: 150px;
   padding: 0 0 0 11px;
 }
-li >  input[type="text"] {
+li > input[type="text"] {
   width: 226px;
 }
 li > .delete:hover {
-  color: #CF2323;
+  color: #cf2323;
 }
 
 /* Edit Username */
-#username input[type=text] {
-  display:none;
+#username input[type="text"] {
+  display: none;
 }
 
-#username.editMode input[type=text] {
-  display:block;
+#username.edit-mode input[type="text"] {
+  display: block;
 }
 
-#username.editMode label {
-  display:none;
+#username.edit-mode label {
+  display: none;
 }
