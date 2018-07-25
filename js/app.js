@@ -69,8 +69,7 @@ const sendMessage = function() {
   axios
     .post("http://192.168.1.21/messages/create/", payload)
     .then(res => res.data)
-    .then(newMessage => {
-      timestamp = newMessage.timestamp;
+    .then(() => {
       messageInput.value = "";
     })
     .catch(error => console.error(error));
@@ -92,7 +91,6 @@ const getNewMessages = function() {
     .get(url)
     .then(res => res.data)
     .then(newMessages => {
-      console.log(newMessages);
       newMessages.forEach(createNewMessage);
       if (newMessages.length) {
         latestTimestamp = newMessages.pop().timestamp;
