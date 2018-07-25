@@ -72,7 +72,7 @@ const sendMessage = function() {
  *		messages area.
  *		(you can use createNewMessage to do this)
  *****************************************************/
-const getAllMessages = function() {
+const getNewMessages = function() {
   // Complete me!
 };
 
@@ -103,6 +103,6 @@ module.exports = {
   setup,
   createNewMessage,
   sendMessage,
-  getAllMessages,
+  getNewMessages,
   editUsername
 };
