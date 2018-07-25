@@ -61,18 +61,18 @@ const createNewMessage = function(messageObj) {
  *    add it to the page using createNewMessage
  * - Don't forget to clear the message input.
  *****************************************************/
-const sendMessage = function() {
+const sendMessage = async function() {
   let payload = {
     username: usernameInput.value,
     message: messageInput.value
   };
-  axios
-    .post("http://192.168.1.21/messages/create/", payload)
-    .then(res => res.data)
-    .then(() => {
-      messageInput.value = "";
-    })
-    .catch(error => console.error(error));
+
+  try {
+    await axios.post("http://192.168.1.21/messages/create/", payload);
+    messageInput.value = "";
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /*****************************************************
@@ -85,19 +85,20 @@ const sendMessage = function() {
  *		messages area.
  *		(you can use createNewMessage to do this)
  *****************************************************/
-const getNewMessages = function() {
+const getNewMessages = async function() {
   let url = "http://192.168.1.21/messages/?latest=" + (latestTimestamp || "");
-  axios
-    .get(url)
-    .then(res => res.data)
-    .then(newMessages => {
-      console.log(newMessages);
-      newMessages.forEach(createNewMessage);
-      if (newMessages.length) {
-        latestTimestamp = newMessages.pop().timestamp;
-      }
-    })
-    .catch(error => console.error(error));
+
+  try {
+    const response = await axios.get(url);
+    const newMessages = response.data;
+
+    newMessages.forEach(createNewMessage);
+    if (newMessages.length) {
+      latestTimestamp = newMessages.pop().timestamp;
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /*****************************************************************
