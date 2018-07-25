@@ -87,7 +87,6 @@ const sendMessage = async function() {
  *		(you can use createNewMessage to do this)
  *****************************************************/
 const getNewMessages = function() {
-  // Complete me!
   let url = "http://192.168.1.21/messages/?latest=" + (latestTimestamp || "");
   axios
     .get(url)
@@ -133,4 +132,4 @@ module.exports = {
   editUsername
 };
 
-setInterval(getAllMessages, 3000);
+setInterval(getNewMessages, 3000);
