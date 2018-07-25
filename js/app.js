@@ -61,7 +61,7 @@ const createNewMessage = function(messageObj) {
  *    add it to the page using createNewMessage
  * - Don't forget to clear the message input.
  *****************************************************/
-const sendMessage = async function() {
+const sendMessage = function() {
   let payload = {
     username: usernameInput.value,
     message: messageInput.value
