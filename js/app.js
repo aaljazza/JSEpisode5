@@ -1,3 +1,5 @@
+import axios from "axios";
+
 let usernameInput;
 let editButton;
 let messageInput;
@@ -59,7 +61,10 @@ const createNewMessage = function(messageObj) {
  * - Don't forget to clear the message input.
  *****************************************************/
 const sendMessage = function() {
-  // Complete me!
+  axios.post("http://192.168.0.21/messages/create", {
+    username: usernameInput.value,
+    message: messageInput.value
+  });
 };
 
 /*****************************************************
@@ -99,7 +104,7 @@ const editUsername = function() {
   usernameSection.classList.toggle("edit-mode");
 };
 
-module.exports = {
+export default {
   setup,
   createNewMessage,
   sendMessage,
