@@ -55,15 +55,13 @@ axiosMock.post.mockImplementation(post);
 
 function post(_, messageObj) {
   return new Promise(function(resolve) {
-    axiosMock.delayTimer = setTimeout(function() {
-      resolve({
-        data: {
-          id: 1,
-          username: messageObj.username,
-          message: messageObj.message
-        }
-      });
-    }, 100);
+    resolve({
+      data: {
+        id: 1,
+        username: messageObj.username,
+        message: messageObj.message
+      }
+    });
   });
 }
 
