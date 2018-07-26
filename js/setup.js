@@ -1,3 +1,3 @@
-const { setup } = require("./app");
+import app from "./app";
 
-setup();
+app.setup();
