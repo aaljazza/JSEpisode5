@@ -38,8 +38,8 @@ const createNewMessage = function(messageObj) {
   let username = document.createElement("label"); // Label
   let message = document.createElement("p"); // Pragraph
 
-  username.innerText = messageObj.username; // Change the label text to the username
-  message.innerText = messageObj.message; // Change the paragraph text to the message
+  username.innerHTML = messageObj.username; // Change the label text to the username
+  message.innerHTML = messageObj.message; // Change the paragraph text to the message
 
   // Append each element to the listItem
   listItem.appendChild(username);
