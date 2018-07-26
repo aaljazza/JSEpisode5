@@ -41,7 +41,7 @@ let getResponse = {
   ]
 };
 
-let postResponse = axiosMock.get.mockImplementation(get);
+axiosMock.get.mockImplementation(get);
 
 function get() {
   return new Promise(function(resolve) {
