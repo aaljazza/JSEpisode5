@@ -30,7 +30,7 @@ describe("getNewMessages()", () => {
     expect(axios.get).toHaveBeenCalled();
   });
 
-  it("calls axios.post with the correct url", () => {
+  it("calls axios.get with the correct url", () => {
     app.getNewMessages();
     expect(axios.get).toHaveBeenCalledWith("http://192.168.1.21/messages/");
   });
