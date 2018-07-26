@@ -39,7 +39,7 @@ describe("sendMessage()", () => {
     ];
     app.sendMessage();
     expect(axios.post).toHaveBeenCalledWith(
-      "http://192.168.0.21/messages/create",
+      "http://192.168.1.21/messages/create",
       messageObjs[0]
     );
 
