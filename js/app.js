@@ -61,10 +61,7 @@ const createNewMessage = function(messageObj) {
  * - Don't forget to clear the message input.
  *****************************************************/
 const sendMessage = function() {
-  axios.post("http://192.168.0.21/messages/create", {
-    username: usernameInput.value,
-    message: messageInput.value
-  });
+  // Complete me!
 };
 
 /*****************************************************
