@@ -3,7 +3,7 @@ import axios from "axios";
 
 import app from "../app";
 
-let message;
+let messages, username, messageInput;
 
 beforeEach(() => {
   document.body.innerHTML =
@@ -14,12 +14,15 @@ beforeEach(() => {
     '<ul id="messages">' +
     "</ul>";
   app.setup();
-  message = document.getElementById("messages");
-  app.sendMessage();
+
+  messages = document.getElementById("messages");
+  username = document.getElementById("username-input");
+  messageInput = document.getElementById("new-message");
 });
 
 describe("sendMessage()", () => {
   it("calls axios.post", () => {
+    app.sendMessage();
     expect(axios.post).toHaveBeenCalled();
   });
 
@@ -34,13 +37,14 @@ describe("sendMessage()", () => {
         message: "I am Potato Monkey"
       }
     ];
+    app.sendMessage();
     expect(axios.post).toHaveBeenCalledWith(
       "http://192.168.0.21/messages/create",
       messageObjs[0]
     );
 
-    document.getElementById("username-input").value = messageObjs[1].username;
-    document.getElementById("new-message").value = messageObjs[1].message;
+    username.value = messageObjs[1].username;
+    messageInput.value = messageObjs[1].message;
     app.sendMessage();
     expect(axios.post).toHaveBeenCalledWith(
       "http://192.168.0.21/messages/create",
@@ -48,16 +52,30 @@ describe("sendMessage()", () => {
     );
   });
 
-  // it("adds a task with the text 'New Task' when the input field is empty", () => {
-  //   app.addTask();
-  //   const listItems = document.getElementsByTagName("li");
-  //   expect(listItems.length).toBe(1);
-  //   expect(listItems[0].querySelector("label").innerHTML).toBe("New Task");
-  // });
+  it("adds a the message to the page after a successful post", () => {
+    return new Promise(function(resolve) {
+      app.sendMessage();
+      setTimeout(() => {
+        resolve();
+      }, 100);
+    }).then(() => {
+      expect(messages.children.length).toBe(1);
+      expect(
+        messages.children[0].querySelector("label").innerHTML ===
+          "MrCoded The Coding Wizard"
+      );
+      expect(messages.children[0].querySelector("p").innerHTML === "Hi! Bru.");
+    });
+  });
 
-  // it("resets the value of the input field after adding a task", () => {
-  //   taskInput.value = "Reticulate splines";
-  //   app.addTask();
-  //   expect(taskInput.value).toBe("");
-  // });
+  it("resets the value of the input field after adding the message", () => {
+    return new Promise(function(resolve) {
+      app.sendMessage();
+      setTimeout(() => {
+        resolve();
+      }, 100);
+    }).then(() => {
+      expect(messageInput.value).toBe("");
+    });
+  });
 });
