@@ -45,9 +45,7 @@ axiosMock.get.mockImplementation(get);
 
 function get() {
   return new Promise(function(resolve) {
-    axiosMock.delayTimer = setTimeout(function() {
-      resolve(getResponse);
-    }, 100);
+    resolve(getResponse);
   });
 }
 
