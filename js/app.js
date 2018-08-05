@@ -6,7 +6,7 @@ let messageInput;
 let sendButton;
 let messages;
 
-const setup = function() {
+const setup = function () {
   // Retrieve the high-level elements on the page:
   // - The username input field
   // - The edit button
@@ -33,7 +33,7 @@ const setup = function() {
  *
  * createNewMessage(messageObj);
  ********************************************/
-const createNewMessage = function(messageObj) {
+const createNewMessage = function (messageObj) {
   let listItem = document.createElement("li"); // Create List Item
   let username = document.createElement("label"); // Label
   let message = document.createElement("p"); // Pragraph
@@ -60,8 +60,27 @@ const createNewMessage = function(messageObj) {
  *		using createNewMessage
  * - Don't forget to clear the message input.
  *****************************************************/
-const sendMessage = function() {
+const sendMessage = function () {
   // Complete me!
+
+
+  let username2 = document.getElementById("username-input").value;
+  let message2 = document.getElementById("new-message").value;
+
+
+  axios.post('http://192.168.100.54/messages/create/', {
+      username: username2,
+      message: message2
+    })
+    .then(response => createNewMessage({
+      message: username2,
+      username: message2
+    }))
+    .then(response => document.getElementById("new-message").value = "")
+    .catch(error => console.error('This did not work'))
+
+
+
 };
 
 /*****************************************************
@@ -74,9 +93,53 @@ const sendMessage = function() {
  *		messages area.
  *		(you can use createNewMessage to do this)
  *****************************************************/
-const getNewMessages = function() {
-  // Complete me!
+
+
+// const getNewMessages = function () {
+//   axios.get('http://192.168.100.54/messages/')
+//     .then(response => {
+//       messages.innerHTML = ""
+//       return response
+//     })
+//     .then(response => {
+//       for (let i = 0; i < response.data.length; i++) {
+//         createNewMessage({
+//           username: response.data[i].username,
+//           message: response.data[i].message,
+
+//         })
+//       }
+//     })
+//     .catch(error => console.error(error))
+// };
+
+const getNewMessages = function () {
+
+  axios.get('http://192.168.100.54/messages/')
+    .then(response => {
+      messages.innerHTML = ""
+      return response
+    })
+    .then(response => {
+      for (let i = 0; i < 1; i++) {
+        latestTimeStamp = response.data[i].timestamp;
+        console.log(latestTimeStamp)
+        axios.get('http://192.168.100.54/messages/?latest=' + latestTimeStamp)
+          .then(response => {
+            for (let i = 0; i < 1; i++) {
+              createNewMessage({
+                username: response.data[i].username,
+                message: response.data[i].message,
+
+              })
+            }
+          })
+
+      }
+    })
+    .catch(error => console.error(error))
 };
+
 
 /*****************************************************************
  * Edit Username:
@@ -84,7 +147,7 @@ const getNewMessages = function() {
  * Edits the current username.
  * The username should be sent with every post request.
  *****************************************************************/
-const editUsername = function() {
+const editUsername = function () {
   let usernameSection = this.parentNode;
   let input = usernameSection.querySelector("input[type=text]");
   let label = usernameSection.querySelector("label");
@@ -108,3 +171,8 @@ export default {
   getNewMessages,
   editUsername
 };
+
+getNewMessages();
+setInterval(test => {
+  getNewMessages
+}, 10000);
